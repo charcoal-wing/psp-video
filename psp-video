@@ -1,6 +1,8 @@
 #!/bin/bash
 
-for f in *.mp4; do
+for f in *.mp4 *.mkv *.avi *.mov *.flv *.webm *.wmv *.m4v; do
+  [ -e "$f" ] || continue
+
   ffmpeg -i "$f" \
   -vf "scale=480:272:force_original_aspect_ratio=decrease,pad=480:272:(ow-iw)/2:(oh-ih)/2" \
   -c:v libx264 -profile:v baseline -level 3.0 -b:v 1200k -r 30 \
